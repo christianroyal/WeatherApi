@@ -1,4 +1,4 @@
-package com.example.weatherapi.Retrofit;
+package com.example.weatherapi.retrofit;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
