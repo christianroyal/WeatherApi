@@ -6,10 +6,11 @@ import android.os.Bundle;
 import android.os.Looper;
 
 import android.util.Log;
-import android.widget.Toolbar;
+
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.ViewPager;
@@ -31,7 +32,7 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.util.List;
-import java.util.Objects;
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Request Permission w Dexter
         Dexter.withActivity(this)
@@ -107,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 tabLayout = (TabLayout)findViewById(R.id.tab_layout);
                 tabLayout.setupWithViewPager(viewPager);
 
-                Log.d(TAG, "locationResult.getLastLocation().getLatitude()+\"/\"+locationResult.getLastLocation().getLongitude()");
+                Log.d(TAG, locationResult.getLastLocation().getLatitude()+"/"+locationResult.getLastLocation().getLongitude());
 
             }
         };
@@ -126,12 +127,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(CurrentWeather.getInstance(), "Today");
+        adapter.addFragment(CurrentWeather.getInstance(), "Today's Weather Report");
         viewPager.setAdapter(adapter);
     }
 
-    private void setSupportActionBar(Toolbar toolbar) {
-
-
-    }
 }

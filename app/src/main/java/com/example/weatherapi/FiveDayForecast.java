@@ -2,11 +2,6 @@ package com.example.weatherapi;
 
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +11,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.example.weatherapi.Model.CurrentWeatherResponse;
 import com.example.weatherapi.common.Common;
-
-
 import com.example.weatherapi.retrofit.IOpenWeatherMap;
 import com.example.weatherapi.retrofit.RetrofitClient;
 import com.squareup.picasso.Picasso;
-
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -36,10 +30,10 @@ import retrofit2.Retrofit;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CurrentWeather extends Fragment {
+public class FiveDayForecast extends Fragment {
 
     ImageView img_weather;
-    TextView txt_city_name,txt_wind,txt_humidity,txt_sunrise,txt_pressure,txt_temperature,txt_date_time,txt_geo_coords,txt_description;
+    TextView txt_city_name,txt_wind,txt_humidity,txt_pressure,txt_temperature,txt_date_time,txt_geo_coords,txt_description;
     LinearLayout weather_panel;
     ProgressBar loading;
 
@@ -47,18 +41,18 @@ public class CurrentWeather extends Fragment {
     IOpenWeatherMap mService;
 
 
-    static CurrentWeather instance;
+    static FiveDayForecast instance;
 
-    public static CurrentWeather getInstance(){
+    public static FiveDayForecast getInstance(){
         if (instance == null)
-            instance= new CurrentWeather();
+            instance= new FiveDayForecast();
             return instance;
 
     }
 
 
 
-    public CurrentWeather() {
+    public FiveDayForecast() {
         compositeDisposable = new CompositeDisposable();
         Retrofit retrofit= RetrofitClient.getInstance();
         mService = retrofit.create(IOpenWeatherMap.class);
@@ -70,7 +64,7 @@ public class CurrentWeather extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View itemView= inflater.inflate(R.layout.fragment_current_weather, container, false);
+        View itemView= inflater.inflate(R.layout.fragment_fiveday_weather, container, false);
 
         img_weather= (ImageView)itemView.findViewById(R.id.image_weather);
         txt_city_name=(TextView)itemView.findViewById(R.id.txt_city_name);
@@ -103,7 +97,7 @@ public class CurrentWeather extends Fragment {
                         .append(".png").toString()).into(img_weather);
 
                 txt_city_name.setText(currentWeatherResponse.getName());
-                txt_description.setText(new StringBuilder("Weather in ")
+                txt_description.setText(new StringBuilder("Weather in")
                         .append(currentWeatherResponse.getName()).toString());
                 txt_temperature.setText(new StringBuilder(String.valueOf(currentWeatherResponse.getMain().getTemp())).append("C").toString());
                 txt_date_time.setText(Common.convertUnixtoDate(currentWeatherResponse.getDt()));
